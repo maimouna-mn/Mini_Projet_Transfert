@@ -22,3 +22,32 @@ background-color: 	#FF4500;
 .transaction-title.cb {
     background-color: #a78928; 
 }
+.notification {
+    position: absolute;
+    background-color: rgb(128, 128, 128);
+    width: 25rem;
+    padding: 2rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: center;
+    animation: notific 2s;
+    font-size: 1.8rem;
+    color: whitesmoke;
+    font-weight: bold;
+}
+@keyframes notific {
+    0% {
+        translate: 0%;
+
+    }
+
+    50% {
+        translate: 10%;
+    }
+
+    100% {
+        translate: 0%;
+    }
+}
