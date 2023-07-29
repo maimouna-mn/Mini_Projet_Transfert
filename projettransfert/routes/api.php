@@ -28,6 +28,9 @@ Route::get("/clients", [ClientController::class, 'index']);
 Route::get("clients/{id}",[ClientController::class, 'show']);
 Route::get("comptes/{compte_emetteur_id}/listetransferts",[CompteController::class,'listeTransferts']);
 Route::get('/comptes/{compte_destinataire_id}/transfertsrecus',[CompteController::class,'transfertRecus']);
+// routes/web.php or routes/api.php
+
+Route::get('/getclient/{phone}', [TransactionController::class,'ClientByPhone']);
 
 // Route::get('/transferts/{transfert_id}',::class)->only(['index']);
 

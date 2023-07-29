@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string("codeTransaction")->nullable();
             $table->enum("typeOperation",["Depot","retrait","Tranfert"]);
             
-            $table->foreignId("id_emetteur")->constrained("comptes")->cascadeOnDelete();
-            $table->foreignId("id_beneficiaire")->constrained("comptes")->cascadeOnDelete()->nullable();
+            $table->foreignId("id_emetteur")->nullable()->constrained("comptes")->cascadeOnDelete();
+            $table->foreignId("id_beneficiaire")->nullable()->constrained("comptes")->cascadeOnDelete();
             $table->timestamps();
         });
     }

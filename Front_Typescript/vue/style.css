@@ -1,0 +1,24 @@
+.transaction-section {
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+.transaction-title{
+    text-align: center;
+}
+.transaction-title.om {
+background-color: 	#FF4500;
+}
+
+.transaction-title.wave {
+    background-color: 	#87CEFA; 
+}
+
+.transaction-title.wari {
+    background-color: #f2101f;
+}
+
+.transaction-title.cb {
+    background-color: #a78928; 
+}
