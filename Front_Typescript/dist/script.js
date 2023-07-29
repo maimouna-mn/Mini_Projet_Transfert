@@ -19,33 +19,6 @@ var _a, _b, _c;
         }
     });
 });
-// function transfert() {
-//     const montant = (<HTMLInputElement>document.getElementById('montant')).value;
-//     const expediteur = (<HTMLInputElement>document.getElementById('expediteur')).value;
-//     const destinataire = (<HTMLInputElement>document.getElementById('destinataire')).value;
-//     const data = {
-//       montant: montant,
-//       id_emetteur: expediteur,
-//       id_beneficiaire: destinataire,
-//     };
-//     fetch('http://127.0.0.1:8000/api/transferts', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(data)
-//     })
-//     .then(response => response.json())
-//     .then(result => {
-//       console.log(result.message);
-//       if (result.codeRetrait) {
-//         console.log('Code de retrait: ' + result.codeRetrait);
-//       }
-//     })
-//     .catch(error => console.error('Erreur lors du transfert:', error));
-//   }
-//   const boutonValider = document.querySelector('.btn-primary');
-//   boutonValider.addEventListener('click', transfert);
 function transfert() {
     const montant = document.getElementById('montant').value;
     const expediteur = document.getElementById('expediteur').value;
@@ -68,7 +41,6 @@ function transfert() {
         if (result.codeRetrait) {
             console.log('Code de retrait: ' + result.codeRetrait);
         }
-        // Fill in the Nom input fields for expediteur and destinataire
         if (result.emetteur) {
             document.getElementById('expediteur_nom').value = result.emetteur.nom;
         }
@@ -80,7 +52,6 @@ function transfert() {
 }
 const boutonValider = document.querySelector('.btn-primary');
 boutonValider === null || boutonValider === void 0 ? void 0 : boutonValider.addEventListener('click', transfert);
-// Event listener for "Numéro expéditeur" field
 (_b = document.getElementById('expediteur')) === null || _b === void 0 ? void 0 : _b.addEventListener('change', () => {
     const expediteur = document.getElementById('expediteur').value;
     fetch('http://127.0.0.1:8000/api/getclient/' + expediteur)
@@ -95,7 +66,6 @@ boutonValider === null || boutonValider === void 0 ? void 0 : boutonValider.addE
     })
         .catch(error => console.error('Erreur lors de la récupération du nom de l\'expéditeur:', error));
 });
-// Event listener for "Numéro destinataire" field
 (_c = document.getElementById('destinataire')) === null || _c === void 0 ? void 0 : _c.addEventListener('change', () => {
     const destinataire = document.getElementById('destinataire').value;
     fetch('http://127.0.0.1:8000/api/getclient/' + destinataire)

@@ -11,72 +11,6 @@ class TransactionController extends Controller
 
 
 
-
-    // public function transfert(Request $request)
-    // {
-    //     $request->validate([
-    //         'montant' => 'required|numeric|min:500',
-    //         'numero_emetteur' => 'nullable|string',
-    //         'numero_beneficiaire' => 'nullable|string',
-    //     ]);
-
-    //     $montant = $request->input('montant');
-    //     $numero_emetteur = $request->input('numero_emetteur');
-    //     $numero_beneficiaire = $request->input('numero_beneficiaire');
-
-    //     $emetteur = null;
-    //     $beneficiaire = null;
-
-    //     if ($numero_emetteur !== null) {
-    //         $emetteur = DB::table('clients')
-    //             ->select('id', 'nom', 'numeroTelepone')
-    //             ->where('numeroTelepone', $numero_emetteur)
-    //             ->first();
-
-    //         $id_emetteur = $emetteur ? $emetteur->id : null;
-    //     } else {
-    //         $id_emetteur = null;
-    //     }
-
-    //     if ($numero_beneficiaire !== null) {
-    //         $beneficiaire = DB::table('clients')
-    //             ->select('id', 'nom', 'numeroTelepone')
-    //             ->where('numeroTelepone', $numero_beneficiaire)
-    //             ->first();
-
-    //         $id_beneficiaire = $beneficiaire ? $beneficiaire->id : null;
-    //     } else {
-    //         $id_beneficiaire = null;
-    //     }
-
-    //     if ($id_beneficiaire === null) {
-    //         $codeTransaction = '';
-    //         for ($i = 0; $i < 25; $i++) {
-    //             $codeTransaction .= random_int(0, 9);
-    //         }
-    //     } else {
-    //         $codeTransaction = null;
-    //     }
-
-    //     DB::table('transactions')->insert([
-    //         'montant' => $montant,
-    //         'codeTransaction' => $codeTransaction,
-    //         'typeOperation' => 'Tranfert',
-    //         'id_emetteur' => $id_emetteur,
-    //         'id_beneficiaire' => $id_beneficiaire,
-    //         'created_at' => now(),
-    //         'updated_at' => now(),
-    //     ]);
-
-    //     $message = $codeTransaction ? 'Transfert effectué avec succès. Code de retrait généré.' : 'Transfert effectué avec succès.';
-    //     return response()->json([
-    //         'message' => $message,
-    //         'codeRetrait' => $codeTransaction,
-    //         'emetteur' => $emetteur,
-    //         'beneficiaire' => $beneficiaire,
-    //     ], 200);
-    // }
-
     public function transfert(Request $request)
     {
         $request->validate([
@@ -89,13 +23,10 @@ class TransactionController extends Controller
         $numero_emetteur = $request->input('numero_emetteur');
         $numero_beneficiaire = $request->input('numero_beneficiaire');
 
-        // Initialize $emetteur and $beneficiaire variables to null
         $emetteur = null;
         $beneficiaire = null;
 
-        // Check if $numero_emetteur and $numero_beneficiaire are not null
         if ($numero_emetteur !== null) {
-            // Retrieve $emetteur from the database based on phone number
             $emetteur = DB::table('clients')
                 ->select('id', 'nom', 'numeroTelepone')
                 ->where('numeroTelepone', $numero_emetteur)
@@ -103,14 +34,12 @@ class TransactionController extends Controller
         }
 
         if ($numero_beneficiaire !== null) {
-            // Retrieve $beneficiaire from the database based on phone number
             $beneficiaire = DB::table('clients')
                 ->select('id', 'nom', 'numeroTelepone')
                 ->where('numeroTelepone', $numero_beneficiaire)
                 ->first();
         }
 
-        // Determine if a codeTransaction needs to be generated
         if ($numero_beneficiaire === null) {
             $codeTransaction = '';
             for ($i = 0; $i < 25; $i++) {
@@ -120,7 +49,6 @@ class TransactionController extends Controller
             $codeTransaction = null;
         }
 
-        // Insert the transaction into the database
         DB::table('transactions')->insert([
             'montant' => $montant,
             'codeTransaction' => $codeTransaction,
@@ -131,10 +59,8 @@ class TransactionController extends Controller
             'updated_at' => now(),
         ]);
 
-        // Prepare the response message
         $message = $codeTransaction ? 'Transfert effectué avec succès. Code de retrait généré.' : 'Transfert effectué avec succès.';
 
-        // Prepare the response data with names and phone numbers
         $response = [
             'message' => $message,
             'codeRetrait' => $codeTransaction,
