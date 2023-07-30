@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\DB;
 class TransactionController extends Controller
 {
 
-
-
-
     public function transfert(Request $request)
     {
         $request->validate([

@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var _a, _b;
 function transfert() {
     const montant = document.getElementById('montant').value;
@@ -111,4 +120,29 @@ typeTransaction.addEventListener('change', () => {
     else {
         hiden.style.display = "block";
     }
+});
+function fetchData(compteEmetteurId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const response = yield fetch(`http://127.0.0.1:8000/api/comptes/${compteEmetteurId}/listetransferts`);
+            const data = yield response.json();
+            const infoString = `Montant: ${data[0].montant}<br>Type d'Opération: ${data[0].typeOperation}<br>Bénéficiaire:Jules Senghor`;
+            console.log(infoString);
+            showModal1(infoString);
+        }
+        catch (error) {
+            console.error('Erreur lors de la récupération des données:', error);
+        }
+    });
+}
+function showModal1(info) {
+    const modalBody = document.querySelector(".modal-body1");
+    modalBody.innerHTML = info;
+    const modal = new bootstrap.Modal(document.getElementById("exampleModalLong"));
+    modal.show();
+}
+const iconElement = document.querySelector('.bi-info-circle');
+iconElement === null || iconElement === void 0 ? void 0 : iconElement.addEventListener('click', () => {
+    const compteEmetteurId = 2;
+    fetchData(compteEmetteurId);
 });

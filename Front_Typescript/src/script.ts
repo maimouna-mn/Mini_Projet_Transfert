@@ -128,3 +128,34 @@ typeTransaction.addEventListener('change', () => {
     }
 
 })
+
+
+async function fetchData(compteEmetteurId: number) {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/comptes/${compteEmetteurId}/listetransferts`);
+      const data = await response.json();
+  
+      const infoString = `Montant: ${data[0].montant}<br>Type d'Opération: ${data[0].typeOperation}<br>Bénéficiaire:Jules Senghor`;
+  
+      console.log(infoString);
+  
+      showModal1(infoString);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données:', error);
+    }
+  }
+  
+  function showModal1(info: string) {
+    const modalBody = document.querySelector(".modal-body1");
+    modalBody.innerHTML = info; 
+  
+    const modal = new bootstrap.Modal(document.getElementById("exampleModalLong"));
+    modal.show();
+  }
+  
+  const iconElement = document.querySelector('.bi-info-circle');
+  iconElement?.addEventListener('click', () => {
+    const compteEmetteurId = 2;
+    fetchData(compteEmetteurId);
+  });
+  
