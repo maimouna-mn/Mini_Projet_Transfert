@@ -95,5 +95,49 @@ class TransactionController extends Controller
                 return response()->json(['error' => 'Client not found'], 404);
             }
     }
-
+    public function depot(Request $request)
+    {
+        $request->validate([
+            'montant' => 'required|numeric|min:500',
+            'id_envoyeur' => 'required|integer', 
+        ]);
+    
+        $montant = $request->input('montant');
+        $id_envoyeur = $request->input('id_envoyeur');
+    
+        $emetteur = DB::table('clients')
+            ->select('id', 'nom', 'numeroTelepone')
+            ->where('id', $id_envoyeur)
+            ->first();
+    
+        if (!$emetteur) {
+            return response()->json(['message' => 'L\'émetteur n\'existe pas.'], 404);
+        }
+    
+        DB::table('clients')
+            ->where('id', $id_envoyeur)
+            ->increment('solde', $montant);
+    
+        DB::table('transactions')->insert([
+            'montant' => $montant,
+            'typeOperation' => 'Depot',
+            'id_emetteur' => $id_envoyeur,
+            'id_beneficiaire' => $id_envoyeur, 
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    
+        $response = [
+            'message' => 'Dépôt effectué avec succès.',
+            'emetteur' => [
+                'id' => $emetteur->id,
+                'nom' => $emetteur->nom,
+                'numeroTelepone' => $emetteur->numeroTelepone,
+            ],
+        ];
+    
+        return response()->json($response, 200);
+    }
+    
+    
 }

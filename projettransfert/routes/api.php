@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/depots',[TransactionController::class,'depot']);
+Route::post('/depot',[TransactionController::class,'depot']);
 Route::post('/transferts',[TransactionController::class,'transfert']);
 Route::get("/clients", [ClientController::class, 'index']);
 Route::get("clients/{id}",[ClientController::class, 'show']);
