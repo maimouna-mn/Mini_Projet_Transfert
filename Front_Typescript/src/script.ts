@@ -1,7 +1,4 @@
-
-
-
-function transfert() {
+function transfert(){
     const montant = (<HTMLInputElement>document.getElementById('montant')).value;
     const expediteur = (<HTMLInputElement>document.getElementById('expediteur')).value;
     const destinataire = (<HTMLInputElement>document.getElementById('destinataire')).value;
@@ -21,11 +18,7 @@ function transfert() {
     })
         .then(response => response.json())
         .then((result: any) => {
-            console.log(result.message);
-            if (result.codeRetrait) {
-                console.log('Code de retrait: ' + result.codeRetrait);
-            }
-
+     
             if (result.emetteur) {
                 (<HTMLInputElement>document.getElementById('expediteur_nom')).value = result.emetteur.nom;
             }
@@ -33,12 +26,26 @@ function transfert() {
             if (result.beneficiaire) {
                 (<HTMLInputElement>document.getElementById('destinataire_nom')).value = result.beneficiaire.nom;
             }
-            if (result.message.includes('Transfert effectué avec succès.')) {
+         
+            if (result.message.includes('Transfert1 effectué avec succès.')) {
                 const message = `Le transfert effectué par ${result.emetteur?.nom} vers ${result.beneficiaire?.nom} est un succès.`;
                 notification(message);
-              }
+            } else {
+               
+                showModal(result.codeRetrait);
+            }
+            
         })
         .catch(error => console.error('Erreur lors du transfert:', error));
+}
+
+
+function showModal(code:string) {
+    const modalBody = document.querySelector(".modal-body");
+    modalBody.textContent = code;
+
+    const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
+    modal.show();
 }
 
 const boutonValider = document.querySelector('.btn-primary');
@@ -72,28 +79,24 @@ document.getElementById('destinataire')?.addEventListener('change', () => {
         .catch(error => console.error('Erreur lors de la récupération du nom du destinataire:', error));
 });
 
-function showNotification(message: string) {
-    console.log('showNotification function called.');
-    if ('Notification' in window && Notification.permission === 'granted') {
-      const notification = new Notification(message);
-    }
-  }
-  
-  let container=document.querySelector('.container')
-  function notification(text: string) {
+let container = document.querySelector('.container')
+function notification(text: string) {
     let notifi = document.createElement("div");
     notifi.textContent = text;
     notifi.classList.add("notification");
     container.appendChild(notifi);
-  
-    setTimeout(() => {
-      container.removeChild(notifi);
-    }, 3000);
-  }
 
-  document.getElementById('fournisseur')?.addEventListener('change', () => {
+    setTimeout(() => {
+        container.removeChild(notifi);
+    }, 3000);
+}
+
+const selFournisseur = document.getElementById('fournisseur')
+
+selFournisseur.addEventListener('change', () => {
     const selectElement = document.getElementById('fournisseur') as HTMLSelectElement;
-    const transactionTitles = document.querySelectorAll('.transaction-title') as NodeListOf<HTMLHeadingElement>;
+    const transactionTitles = document.querySelectorAll('.transaction-title');
+
     const selectedFournisseur = selectElement.value;
 
     transactionTitles.forEach(transactionTitle => {
@@ -110,3 +113,18 @@ function showNotification(message: string) {
         }
     });
 });
+
+
+const hiden = document.getElementById('hiden') as HTMLElement;
+const typeTransaction = document.getElementById("type_transaction");
+
+typeTransaction.addEventListener('change', () => {
+    const selecttype = document.getElementById('type_transaction') as HTMLSelectElement
+    if (selecttype.value === "retrait") {
+        hiden.style.display = "none";
+    } else {
+        hiden.style.display = "block";
+
+    }
+
+})

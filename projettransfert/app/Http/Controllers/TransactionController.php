@@ -59,7 +59,7 @@ class TransactionController extends Controller
             'updated_at' => now(),
         ]);
 
-        $message = $codeTransaction ? 'Transfert effectué avec succès. Code de retrait généré.' : 'Transfert effectué avec succès.';
+        $message = $codeTransaction ? 'Transfert effectué avec succès. Code de retrait généré.' : 'Transfert1 effectué avec succès.';
 
         $response = [
             'message' => $message,

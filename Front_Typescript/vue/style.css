@@ -37,6 +37,10 @@ background-color: 	#FF4500;
     color: whitesmoke;
     font-weight: bold;
 }
+#hiden{
+    display: none;
+}
+
 @keyframes notific {
     0% {
         translate: 0%;

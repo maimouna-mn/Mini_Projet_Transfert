@@ -14,7 +14,7 @@
 
         <h1 class="text-center">Transfert Breukh</h1>
 
-      
+
 
         <div class="transaction-section">
             <h4 class="transaction-title">Expéditeur</h4>
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        <div class="transaction-section">
+        <div class="transaction-section" id="hiden">
             <h4 class="transaction-title">Destinataire</h4>
             <div class="form-group">
                 <label for="destinataire">Numéro destinataire</label>
@@ -69,6 +69,7 @@
         </div>
 
 
+
         <div class="text-right">
             <button class="btn btn-primary btn-lg">Valider</button>
         </div>
@@ -79,6 +80,27 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Code pour retirer l'argent: </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+               
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="../dist/script.js"></script>
 </body>
 

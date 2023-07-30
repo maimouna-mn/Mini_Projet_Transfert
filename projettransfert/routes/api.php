@@ -31,20 +31,3 @@ Route::get('/comptes/{compte_destinataire_id}/transfertsrecus',[CompteController
 
 Route::get('/getclient/{phone}', [TransactionController::class,'ClientByPhone']);
 
-// Route::get('/transferts/{transfert_id}',::class)->only(['index']);
-
-//Comptes
-// Route::get('comptes/{id}',::class)->only(['index']);
-// Route::get('/clients/{client_id}/comptes',::class)->only(['index']);
-//Transferts
-// Route::get('/comptes/{compte_emetteur_id}/transferts',::class)->only(['index']);
-// Route::get('/comptes/{compte_destinataire_id}/transferts',::class)->only(['index']);
-// Route::get('/transferts/{transfert_id}',::class)->only(['index']);
-//depots
-
-// Route::get('/comptes/{compte_id}/depots',::class)->only(['index']);
-// Route::get('/depots/{depot_id}',::class)->only(['index']);
-
-//Clients
-// Route::apiResource('evaluation',EvalutionController::class)->only(['store','index']);
-
